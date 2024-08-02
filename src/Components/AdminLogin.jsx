@@ -1,6 +1,7 @@
 import React from "react";
 
 function AdminLogin (){
+    // logic for admin login
     return (
         <>
         <div>
