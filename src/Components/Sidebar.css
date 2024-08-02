@@ -1,0 +1,56 @@
+.sidebar{
+    font-family: "Poppins";
+    height:100vh;
+    width:25%;
+    position: absolute;
+    left:0;
+    top:0;
+    background-color: #800000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar ul{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.sidebar ul li{
+    list-style-type: none;
+    color:white;
+    font-weight: 500;
+    margin:10px;
+    width: fit-content;
+}
+
+
+
+.sidebar span{
+    position: relative;
+    right:25px;
+    bottom: 6px;
+}
+.sidebar ul li img{
+    position : relative;
+    right:30px;
+    bottom: 2px;
+    height:25px;
+    width:25px;
+}
+.sidebar ul li:last-child{
+    position: absolute;
+    bottom:0;
+}
+
+.link{
+    text-decoration: none;
+    color:white;
+}
+.active{
+    color:#ff402f;
+}
+
+

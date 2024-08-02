@@ -1,0 +1,60 @@
+.heading {
+    color: #800000;
+    text-align: center;
+    font-family: 'Poppins', sans-serif !important;
+    font-size:1.4em;
+    font-weight: 600;
+    margin: 20px;
+  }
+
+  .table-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden; /* Remove horizontal scroll */
+    width: 100%;
+    margin-left: 25%;
+    margin-top:15%;
+  }
+
+  .custom-table tr th,.custom-table tr td{
+    padding:10px;
+  }
+  
+ 
+.table-light-red {
+  background-color: #ffe6e6; 
+}
+
+.table-light-red th,
+.table-light-red td {
+  background-color: inherit; /* Ensure background color applies to all cells */
+}
+
+.table-light-red thead th {
+  background-color: #ffcccc; /* Slightly darker shade for the header */
+}
+
+.donors tr th, .donors tr td{
+  padding: 15px;
+}
+
+.donor-table{
+   font-size: 0.7em;
+    margin-left: 30%;
+}
+p{
+  text-align: center;
+  font-size: 1.3em;
+  font-weight: 600;
+  color:#800000;
+}
+
+.body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 100vh;
+}

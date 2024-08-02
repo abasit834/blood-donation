@@ -1,0 +1,84 @@
+/* ShowDonors.css */
+
+/* General styling for headings */
+
+.recipent-body h1{
+     margin-left:15%;
+}
+
+.heading {
+  color: #800000;
+  text-align: center;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 1.4em;
+  font-weight: 600;
+  margin: 20px;
+}
+
+/* Styling for table container to center content */
+.data-table-container {
+  margin-left: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto; /* Allow horizontal scroll if needed */
+  width: 100%;
+  margin-top: 15%;
+}
+
+.recipent{
+  margin-top:0%;
+  margin-bottom: 10%;
+}
+
+/* Ensure table takes full width of its container */
+.data-table {
+  margin-right: 50px;
+ /* Ensure table takes full width */
+  border-collapse: collapse; /* Collapse borders for a cleaner look */
+}
+
+/* Light red background for table */
+.data-table-light-red {
+  background-color: #ffe6e6;
+}
+
+.data-table-light-red th,
+.data-table-light-red td {
+  background-color: inherit; /* Ensure background color applies to all cells */
+}
+
+.data-table-light-red thead th {
+  background-color: #ffcccc; /* Slightly darker shade for the header */
+}
+
+/* Padding for table cells */
+.data-table th,
+.data-table td {
+  padding: 12px; /* Adjust padding for better readability */
+}
+
+/* Ensure address column has enough width */
+.data-table .data-table-address {
+  min-width: 200px; /* Adjust width as needed */
+}
+
+/* Make the table responsive */
+.data-table {
+  max-width: 100%; /* Ensure table does not exceed container width */
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+/* Adjust font size for better readability */
+.data-table-container {
+  font-size: 0.8em; /* Adjust font size as needed */
+}
+
+.recipent-body{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

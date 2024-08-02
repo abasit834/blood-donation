@@ -1,0 +1,241 @@
+body{
+    font-family: "Poppins","Aerial","Sans-Serif";
+    overflow-x:hidden ;
+}	
+.donor{
+  top:0;
+  left:0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width:100vw;
+  height: 100vh;
+}
+
+
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.form-struct{  
+  margin-top:10%;
+  width: 650px;
+  height:100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 2fr;
+}
+
+.form-head{
+  display: grid;
+  background-color: #b92012;
+  grid-template-columns: 1fr 1fr;
+}
+
+.form-head div{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+}
+
+
+.form-head div img{
+  width:170px;
+  height:170px;
+}
+
+.form-head h1{
+  color: white;
+}
+
+.form-head div:nth-child(2)
+{
+    flex-direction: column;
+}
+
+.form-head div p{
+  color: #2C3345;
+  margin-top: -20px;
+  font-weight: 500;
+  font-size: 0.7em;
+  text-align: left;
+}
+
+.form-body{
+  background-color: #FAF9F6;
+  height:fit-content;
+  border:2px solid rgb(206, 206, 206);
+}
+
+/* BloodDonationForm.css */
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.form-group {
+  width:60%;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+
+.form-group div {
+  margin-top: 5px;
+}
+
+.form-group button {
+  width:100%;
+  padding: 12px;
+  border-radius: 3px;
+  border: none;
+  background-color:#ad2e22;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.form-group span{
+    font-size:12px;
+    color:red;
+}
+
+.form-group button:hover {
+  background-color: #8b241a;
+}
+#radio label:nth-child(2){
+  position: relative;
+  left:-260px;
+  bottom: 1px;
+  display: inline;
+}
+
+input[type="radio"]{ 
+  margin-left:-90px;
+}
+
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .form-container {
+    padding: 10px;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 10px;
+  }
+
+  .form-group button {
+    padding: 10px;
+  }
+}
+
+
+@media (max-width:768px)
+{
+  .form-struct{
+    width:80vw;
+  }
+  .form-body button{
+    margin-left:0px;
+    margin-top:10px;
+  }
+  .form-head div p br{
+    display: none;
+  }
+  .form-head div p{
+    font-size: 0.7em;
+    height:55px;
+  }
+  #radio label:nth-child(2){
+  left:-234px;
+  }
+  input[type="radio"]{ 
+    margin-left:-100px;
+  }
+
+}
+
+@media (max-width:425px)
+{
+  .form-head div img{
+    width:100px;
+    height:100px;
+  }
+  .form-head div h1{
+    font-size: 1rem;
+  }
+  .form-head div p{
+    font-size: 7px;
+    margin-top:-12px;
+  }
+  .form-body button{
+    margin-left:90px;
+    margin-top:40px;
+  }
+  #radio label:nth-child(2) {
+    left: -139px;
+}
+    input[type="radio"]{ 
+      margin-left:-33px;
+    }
+
+    .form-body button {
+      margin-left: 0px;
+      margin-top: 40px;
+  }
+
+}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
