@@ -1,6 +1,6 @@
 # Blood donation Website
 
-This project is being created in React.
+This project is being created in React and is UnderConstruction.
 
 ##  Home Page
 
@@ -16,7 +16,7 @@ This project is being created in React.
 
 ## Find A Donor
 
-UnderConstruction
+- UnderConstruction
 
 
 ## Admin Login
