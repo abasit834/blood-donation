@@ -1,7 +1,6 @@
 import React from "react";
 import backgroundImage from '../Assets/patient.jpg'
 import './Home.css'
-import home from '../Assets/home.png';
 import { useNavigate } from "react-router-dom";
 
 

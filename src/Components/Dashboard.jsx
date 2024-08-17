@@ -3,15 +3,14 @@ import SideBar from "./SideBar";
 import Box from '@mui/material/Box';
 import "./Dashboard.css";
 import { useState } from "react";
+import { alignProperty } from "@mui/material/styles/cssUtils";
 
 
 // Define the styles separately
 const boxStyles = {
-  mt: 5,
-  ml: 20,
   width: "100%",
   display: "flex",
-  justifyContent: "space-evenly",
+  justifyContent: "center",
   gap: 2,
   flexWrap: "wrap",
 };

@@ -20,6 +20,8 @@ mongoose.connect('mongodb+srv://ab1438068:blbNfM3WuYgaMs1I@blood-donation.oziifd
 .catch(err => console.log(err));
 
 app.use("/donors",require("./Routes/donorRoutes"));
+app.use("/admin",require("./Routes/adminRoutes"));
+
 
 
 app.listen(PORT,()=>{

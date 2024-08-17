@@ -4,7 +4,7 @@ const donor = require("../Controllers/adminController");
 const router = Router();
 
 
-router.get("/admin-login",checkUser);
+router.post("/login",donor.checkUser);
 
 
 module.exports = router;

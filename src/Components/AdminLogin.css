@@ -1,0 +1,76 @@
+.admin-login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #800000;;
+    position: fixed; 
+    width:100vw;
+    top:0;
+    left: 0;
+}
+
+.admin-login-container h1 {
+  position: absolute;
+  top: 20px; 
+  left: 20px;
+  color: #ccc;
+  margin: 0; 
+}
+
+  
+  .admin-login-card {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 400px;
+  }
+  
+  .admin-login-card .admin-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+  }
+  
+  .admin-login-card h2 {
+    margin-bottom: 1.5rem;
+  }
+  
+  .admin-login-card .form-group {
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+  
+  .admin-login-card .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .admin-login-card .form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .admin-login-card .error-message {
+    color: red;
+    font-size: 0.875rem;
+  }
+  
+  .admin-login-card button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .admin-login-card button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }

@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Donor.css";
 import bloodDonation from "../Assets/blood-donation.png";
-import { Alert } from "@mui/material";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function BecomeADonor() {
@@ -33,37 +34,121 @@ function BecomeADonor() {
       gender ==="" ||
       bloodgroup === "" || contact === ""
     ) {
-      alert("Please fill in all the fields");
+      toast.error('Please fill in all the fields', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
       return;
     }
     if(containsNumber(name)){
-      alert("Name cannot be numeric");
+      toast.error("Name cannot be numeric", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+
+        });
       return;
     }
     if(ageCheck)
     {
-      alert("Not Eligible to Donate");
+      toast.warn("Not Eligible to Donate", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+
+        });
       return;
     }  
-    if(contact.length < 11 || contact.length > 11)
-      {
-        alert("Contact Number should be of 11 digits");
-        return;
-      }
+    if (contact.length !== 11) {
+      toast.warn("Contact Number should be exactly 11 digits", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+    
     console.log(gender,bloodgroup);
     if(!radioButton)
     {
-      alert("Select any radio option");
+      toast.warn("Select any radio option", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+
+        });
       return;
     }
   
     console.log(gender);
     if(hasDonated===false && lastdonated==="")
     {
-      alert("Please fill in all the fields");
+      toast.warn("Please enter last donated date", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+
+        });
       return;
     }
+    if(weight < 50)
+    {
+      toast.warn("Weight Should be between 17-70", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+  
+        });
+        return;
+    }
 
+      toast.success("Form Submitted Successfully", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+
+      });
     setName("");
     setAddress("");
     setAge("");
@@ -73,7 +158,6 @@ function BecomeADonor() {
     setWeight("");
     setContact("");
     sessionStorage.clear();
-    alert("Form Submitted Successfully");
   }
 
   function containsNumber(str) {
@@ -84,7 +168,6 @@ function BecomeADonor() {
 
   return (
     <div className="donor">
-      <Alert severity="success" style={{marginTop : "20px"}}>Congratulations! You have been added in the Donor Database.</Alert>
       <div className="form-struct">
         <div className="form-head">
           <div>
@@ -276,6 +359,7 @@ function BecomeADonor() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
