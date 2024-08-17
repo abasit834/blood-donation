@@ -1,6 +1,56 @@
-# Getting Started with Create React App
+# Blood donation Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is being created in React.
+
+##  Home Page
+
+![Screenshot (46)](https://github.com/user-attachments/assets/c7157709-f5f1-472a-b0ab-eb2a55ae230b)
+
+## Become A Donor 
+
+![Screenshot (47)](https://github.com/user-attachments/assets/8dc5189e-c6b1-4829-8cc6-604f13fbeb93)
+
+
+![Screenshot (48)](https://github.com/user-attachments/assets/17838c37-bc32-47ce-bc41-9817727b955b)
+
+
+## Find A Donor
+
+UnderConstruction
+
+
+## Admin Login
+
+![Screenshot (49)](https://github.com/user-attachments/assets/446e403a-0b0a-4152-a3e1-e409d4b2a76e)
+
+## Admin Dashboard
+
+![Screenshot (51)](https://github.com/user-attachments/assets/e176efd7-b352-4517-8476-67fdb40352a5)
+
+## Donors
+
+- UnderConstruction
+
+![Screenshot (52)](https://github.com/user-attachments/assets/7980093a-90fb-42d9-86f8-54b01dc4bc06)
+
+## Recipents
+
+- UnderConstruction
+
+![Screenshot (53)](https://github.com/user-attachments/assets/8d5e494c-d2ff-4851-94e6-233dbf33a124)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Available Scripts
 
