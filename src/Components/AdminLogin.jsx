@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import adminIcon from '../Assets/admin.png';
+import adminIcon from '../Assets/admin.png';
 import "./AdminLogin.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -62,7 +62,7 @@ function AdminLogin() {
         <div className="admin-login-container">
             <h1>ADMIN LOGIN</h1>
             <div className="admin-login-card">
-                {/* <img src={adminIcon} alt="Admin Icon" className="admin-icon" /> */}
+                <img src={adminIcon} alt="Admin Icon" className="admin-icon" />
                 <h2>Admin Login</h2>
                 <form>
                     <div className="form-group">

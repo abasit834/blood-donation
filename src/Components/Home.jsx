@@ -14,7 +14,9 @@ return (
             <li onClick={()=>{
                navigate('/become-a-donor');
             }}>Become A Donor</li>
-            <li>Find Donor</li>
+            <li onClick={()=>{
+                navigate('/recipent');
+            }}>Find Donor</li>
             </ul>
         </nav>
     </header>

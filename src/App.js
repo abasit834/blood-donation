@@ -1,4 +1,4 @@
-// App.js
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route,Navigate } from 'react-router-dom';
 import HomePage from './Components/Home';
@@ -8,6 +8,7 @@ import AdminLogin from './Components/AdminLogin';
 import ShowDonors from "./Components/ShowDonors";
 import ShowRecipents from "./Components/ShowRecipents"
 import ProtectedRoute from './Components/ProtectedRoute';
+import FindDonor from './Components/Recipent';
 
 
 
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/become-a-donor" element={<BecomeADonor />} />
+        <Route path="/recipent" element={<FindDonor />} />
         <Route path="/admin/login" element={<AdminLogin/>}/>
         <Route path="/admin/dashboard" element={<ProtectedRoute  Component={Dashboard}/>}/>
         <Route path="/admin/donors" element={<ProtectedRoute Component={ShowDonors}/>}/>
