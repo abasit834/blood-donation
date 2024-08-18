@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Donor.css";
 import bloodDonation from "../Assets/blood-donation.png";
 import { ToastContainer, toast } from 'react-toastify';
+import axios from "axios";
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -17,12 +18,63 @@ function BecomeADonor() {
   const [weight, setWeight] = useState(!sessionStorage.getItem("weight")?"":sessionStorage.getItem("weight"));
   const [bloodgroup, setBloodGroup] = useState(!sessionStorage.getItem("blood-group")?"":sessionStorage.getItem("blood-group"));
   const [lastdonated, setLastDonated] = useState(!sessionStorage.getItem("last-donated")?"":sessionStorage.getItem("last-donated"));
+  const [cities,setCitiesFromApi] =  useState([]);
+
+
+  function calculateAge(dob) {
+    // Convert the date of birth into a Date object
+    const birthDate = new Date(dob);
+    
+    // Get the current date
+    const today = new Date();
+    
+    // Calculate the difference in years
+    let age = today.getFullYear() - birthDate.getFullYear();
+    
+    // Adjust if the birth date hasn't occurred yet this year
+    const monthDifference = today.getMonth() - birthDate.getMonth();
+    const dayDifference = today.getDate() - birthDate.getDate();
+    
+    if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+      age--;
+    }
+  
+    return age;
+  }
+
+  const fetchCities = async () =>{
+    const where = encodeURIComponent(JSON.stringify({
+      "name": {
+        "$exists": true
+      }
+    }));
+    try{
+    const response = await fetch(
+      `https://parseapi.back4app.com/classes/Pakistancities_City?limit=6445&order=name&keys=name&where=${where}`,
+      {
+        headers: {
+          'X-Parse-Application-Id': 'MhoVSUP89e1ujc0Z6EGYruWbQFJX5wqzEzNFdt4O', // This is your app's application id
+          'X-Parse-REST-API-Key': '9Rv7VI4pVppMkhF9cmPOFWmFCFd0ag7b5TqW7s2j', // This is your app's REST API key
+        }
+      }
+    );
+    const data = await response.json(); // Here you have the data that you need
+    //console.log(JSON.stringify(data, null, 2));
+    setCitiesFromApi(data.results.map(city => city.name));
+  }catch(err){
+    console.log("Error fetching cities",err);
+  }
+  }
+
+
 
   useEffect(() => {
     document.title = "Become A Donor";
+    fetchCities();
   }, []);
 
-  function handleSubmit(e) {
+
+  async function handleSubmit(e) {
     e.preventDefault();
     if (
       name === "" ||
@@ -138,33 +190,61 @@ function BecomeADonor() {
         return;
     }
 
-      toast.success("Form Submitted Successfully", {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-
-      });
-    setName("");
-    setAddress("");
-    setAge("");
-    setGender("");
-    setBloodGroup("");
-    setLastDonated("");
-    setWeight("");
-    setContact("");
-    sessionStorage.clear();
+    try{
+        const submitData = {
+              name : name,
+              dob :  age ,
+              gender : gender ,
+              bloodgroup : bloodgroup,
+              weight :  weight,
+              city : address,
+              contact : contact,
+              lastdonated : lastdonated
+        }
+        
+        const response = await axios.post("http://localhost:3005/donors/addDonor",submitData);
+        if(response.status === 200)
+        {
+          toast.success("Form Submitted Successfully", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+      
+            });
+          setName("");
+          setAddress("");
+          setAge("");
+          setGender("");
+          setBloodGroup("");
+          setLastDonated("");
+          setWeight("");
+          setContact("");
+          sessionStorage.clear();
+        }  
+    }
+    catch(err){
+          console.log("Error Occurred",err);
+    }
+    
   }
 
   function containsNumber(str) {
     const regex = /\d/;
     return regex.test(str);
   }
-
+  
+  function containsNegative(str) {
+    const num = parseInt(str);
+    if(num < 0)
+    return true;
+  
+    return false;
+  }
 
   return (
     <div className="donor">
@@ -205,18 +285,20 @@ function BecomeADonor() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="age">Age</label>
+                <label htmlFor="dob">Date of Birth</label>
                 <input
-                  type="number"
-                  name="age"
+                  type="date"
+                  name="dob"
                   value={age}
                   // defaultValue={age}
                   onChange={(e) => {
+                    const age = calculateAge(e.target.value);
+                    console.log(age);
                     setAge(e.target.value);
                     sessionStorage.setItem("age", e.target.value);
-                    if(e.target.value === "")
+                    if(age === "")
                     setAgeCheck(false);
-                    else if(e.target.value <= 16 || e.target.value >=70)
+                    else if(age <= 16 || age >=70)
                     setAgeCheck(true);  
                     else
                     setAgeCheck(false);
@@ -225,7 +307,7 @@ function BecomeADonor() {
                 {ageCheck ? <span>*Not Eligible to Donate (Age should be between 16-70)</span> : ""}
               </div>
 
-
+              
               <div className="form-group">
                 <label htmlFor="gender">Gender</label>
                 <select
@@ -243,56 +325,10 @@ function BecomeADonor() {
                   </select>
               </div>
 
-
               <div className="form-group">
-                <label htmlFor="address">Contact Number</label>
-                <input
-                  type="number"
-                  name="contact"
-                  placeholder="+92"
-                  value={contact}
-                  onChange={(e) => {
-                    setContact(e.target.value);
-                    sessionStorage.setItem("contact", e.target.value);
-                  }}
-                />
-                {contact.length > 11 ? <span>Contact Number should be 11 digits</span> :""}
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="address">Address</label>
-                <input
-                  type="text"
-                  name="address"
-                  value={address}
-                  // defaultValue={address}
-                  onChange={(e) => {
-                    setAddress(e.target.value);
-                    sessionStorage.setItem("address", e.target.value);
-                  }}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="weight">Weight</label>
-                <input
-                  type="number"
-                  name="weight"
-                  placeholder="Kg"
-                  value={weight}
-                  // defaultValue={weight}
-                  onChange={(e) => {
-                    setWeight(e.target.value);
-                    sessionStorage.setItem("weight", e.target.value);
-                  }}
-                />
-                {weight < 50 && weight.length > 0 ? <span>*Not Eligible to Donate (Min. Eligible Weight is 50)</span> :""}
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="blood-group">Blood Group</label>
+                <label htmlFor="bloodgroup">Blood Group</label>
                 <select
-                  name="blood-group"
+                  name="bloodgroup"
                   onChange={(e) => {
                     setBloodGroup(e.target.value);
                     sessionStorage.setItem("blood-group", e.target.value);
@@ -312,6 +348,60 @@ function BecomeADonor() {
                 </select>
               </div>
 
+
+              <div className="form-group">
+                <label htmlFor="weight">Weight</label>
+                <input
+                  type="number"
+                  name="weight"
+                  placeholder="Kg"
+                  value={weight}
+                  // defaultValue={weight}
+                  onChange={(e) => {
+                    setWeight(e.target.value);
+                    sessionStorage.setItem("weight", e.target.value);
+                  }}
+                />
+                {weight < 50 && weight.length > 0 ? <span>*Not Eligible to Donate (Min. Eligible Weight is 50)</span> :""}
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="city">City</label>
+                <select
+                  name="city"
+                  value={address}
+                  // defaultValue={address}
+                  onChange={(e) => {
+                    setAddress(e.target.value);
+                    sessionStorage.setItem("address", e.target.value);
+                  }}
+                >
+                  <option value="Select Your City">Select Your City</option>
+                  {
+                    cities.map((city,index)=>{
+                      return <option key={index} value={city}>{city}</option>
+                    })
+                  }
+                  </select>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="contact">Contact Number</label>
+                <input
+                  type="number"
+                  name="contact"
+                  placeholder="+92"
+                  value={contact}
+                  onChange={(e) => {
+                    setContact(e.target.value);
+                    sessionStorage.setItem("contact", e.target.value);
+                  }}
+                />
+                {containsNegative(contact) ? <span>Contact Number can't be negative</span>:""}
+                {contact.length > 11 ? <span>Contact Number should be 11 digits</span> :""}
+              </div>
+
+              
               <div className="form-group" id="radio">
                 <label>Have you donated in the last 3 months?</label>
                 <div>
@@ -319,7 +409,7 @@ function BecomeADonor() {
                     type="radio"
                     name="donated-recently"
                     value="yes"
-                    onClick={() => {setHasDonated(true);setRadioChecked(true)}}
+                    onClick={() => {setHasDonated(false);setRadioChecked(true)}}
                   />
                   <label htmlFor="yes">Yes</label>
                 </div>
@@ -328,17 +418,17 @@ function BecomeADonor() {
                     type="radio"
                     name="donated-recently"
                     value="no"
-                    onClick={() => {setHasDonated(false); setRadioChecked(true)}}
+                    onClick={() => {setHasDonated(true); setRadioChecked(true)}}
                   />
                   <label htmlFor="no">No</label>
                 </div>
               </div>
 
               <div className="form-group">
-                <label htmlFor="last-donation-date">Last Donation Date</label>
+                <label htmlFor="lastdonated">Last Donation Date</label>
                 <input
                   type="date"
-                  name="last-donation-date"
+                  name="lastdonated"
                   disabled={hasDonated}
                   value={lastdonated}
                   // defaultValue={lastdonated}
