@@ -31,6 +31,7 @@ form{
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 2fr;
+  animation: form 1s ease;
 }
 
 .form-head{
@@ -211,7 +212,18 @@ input[type="radio"]{
   }
 
 }
-  
+
+/* animations */
+
+@keyframes form {
+  from {
+    transform: translateY(400px);
+  }
+  to{
+      transform: translateY(0);
+  }
+
+}
   
   
   
