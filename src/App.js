@@ -9,23 +9,28 @@ import ShowDonors from "./Components/ShowDonors";
 import ShowRecipents from "./Components/ShowRecipents"
 import ProtectedRoute from './Components/ProtectedRoute';
 import FindDonor from './Components/Recipent';
-
+import Card from './Components/bloodCard';
+import CardDisplay from './Components/bloodCardDisplay';
 
 
 function App() {
   return (
-    <Router>
+     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/become-a-donor" element={<BecomeADonor />} />
+       
         <Route path="/recipent" element={<FindDonor />} />
         <Route path="/admin/login" element={<AdminLogin/>}/>
         <Route path="/admin/dashboard" element={<ProtectedRoute  Component={Dashboard}/>}/>
         <Route path="/admin/donors" element={<ProtectedRoute Component={ShowDonors}/>}/>
         <Route path="/admin/recipents" element={<ProtectedRoute Component={ShowRecipents}/>}/>
+        <Route path="/admin/CardDisplay" element={<CardDisplay/>} />
         <Route path="/*" element={<Navigate to="/"/>} />
       </Routes> 
     </Router>
+     
+   
   );
 }
 
