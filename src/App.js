@@ -24,7 +24,7 @@ function App() {
         <Route path="/admin/dashboard" element={<ProtectedRoute  Component={Dashboard}/>}/>
         <Route path="/admin/donors" element={<ProtectedRoute Component={ShowDonors}/>}/>
         <Route path="/admin/recipents" element={<ProtectedRoute Component={ShowRecipents}/>}/>
-        <Route path="/admin/CardDisplay" element={<CardDisplay/>} />
+        <Route path="/CardDisplay" element={<CardDisplay/>} />
         <Route path="/*" element={<Navigate to="/"/>} />
       </Routes> 
     </Router>
