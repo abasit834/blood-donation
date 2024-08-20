@@ -19,7 +19,6 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/become-a-donor" element={<BecomeADonor />} />
-       
         <Route path="/recipent" element={<FindDonor />} />
         <Route path="/admin/login" element={<AdminLogin/>}/>
         <Route path="/admin/dashboard" element={<ProtectedRoute  Component={Dashboard}/>}/>

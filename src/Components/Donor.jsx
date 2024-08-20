@@ -1,78 +1,96 @@
 import React, { useEffect, useState } from "react";
 import "./Donor.css";
 import bloodDonation from "../Assets/blood-donation.png";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
-import 'react-toastify/dist/ReactToastify.css';
-
+import "react-toastify/dist/ReactToastify.css";
 
 function BecomeADonor() {
-  const [contact,setContact] = useState(!sessionStorage.getItem("contact")?"":sessionStorage.getItem("contact"));
-  const [radioButton,setRadioChecked] = useState(false);
+  const [contact, setContact] = useState(
+    !sessionStorage.getItem("contact") ? "" : sessionStorage.getItem("contact")
+  );
+  const [radioButton, setRadioChecked] = useState(false);
   const [hasDonated, setHasDonated] = useState(true);
-  const [ageCheck,setAgeCheck] = useState(false);
-  const [name, setName] = useState(!sessionStorage.getItem("name")?"":sessionStorage.getItem("name"));
-  const [age, setAge] = useState(!sessionStorage.getItem("age")?"":sessionStorage.getItem("age"));
-  const [gender, setGender] = useState(!sessionStorage.getItem("gender")?"":sessionStorage.getItem("gender"));
-  const [address, setAddress] = useState(!sessionStorage.getItem("address")?"":sessionStorage.getItem("address"));
-  const [weight, setWeight] = useState(!sessionStorage.getItem("weight")?"":sessionStorage.getItem("weight"));
-  const [bloodgroup, setBloodGroup] = useState(!sessionStorage.getItem("blood-group")?"":sessionStorage.getItem("blood-group"));
-  const [lastdonated, setLastDonated] = useState(!sessionStorage.getItem("last-donated")?"":sessionStorage.getItem("last-donated"));
-  const [cities,setCitiesFromApi] =  useState([]);
-
+  const [ageCheck, setAgeCheck] = useState(false);
+  const [name, setName] = useState(
+    !sessionStorage.getItem("name") ? "" : sessionStorage.getItem("name")
+  );
+  const [age, setAge] = useState(
+    !sessionStorage.getItem("age") ? "" : sessionStorage.getItem("age")
+  );
+  const [gender, setGender] = useState(
+    !sessionStorage.getItem("gender") ? "" : sessionStorage.getItem("gender")
+  );
+  const [address, setAddress] = useState(
+    !sessionStorage.getItem("address") ? "" : sessionStorage.getItem("address")
+  );
+  const [weight, setWeight] = useState(
+    !sessionStorage.getItem("weight") ? "" : sessionStorage.getItem("weight")
+  );
+  const [bloodgroup, setBloodGroup] = useState(
+    !sessionStorage.getItem("blood-group")
+      ? ""
+      : sessionStorage.getItem("blood-group")
+  );
+  const [lastdonated, setLastDonated] = useState(
+    !sessionStorage.getItem("last-donated")
+      ? ""
+      : sessionStorage.getItem("last-donated")
+  );
+  const [cities, setCitiesFromApi] = useState([]);
 
   function calculateAge(dob) {
     // Convert the date of birth into a Date object
     const birthDate = new Date(dob);
-    
+
     // Get the current date
     const today = new Date();
-    
+
     // Calculate the difference in years
     let age = today.getFullYear() - birthDate.getFullYear();
-    
+
     // Adjust if the birth date hasn't occurred yet this year
     const monthDifference = today.getMonth() - birthDate.getMonth();
     const dayDifference = today.getDate() - birthDate.getDate();
-    
+
     if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
       age--;
     }
-  
+
     return age;
   }
 
-  const fetchCities = async () =>{
-    const where = encodeURIComponent(JSON.stringify({
-      "name": {
-        "$exists": true
-      }
-    }));
-    try{
-    const response = await fetch(
-      `https://parseapi.back4app.com/classes/Pakistancities_City?limit=6445&order=name&keys=name&where=${where}`,
-      {
-        headers: {
-          'X-Parse-Application-Id': 'MhoVSUP89e1ujc0Z6EGYruWbQFJX5wqzEzNFdt4O', // This is your app's application id
-          'X-Parse-REST-API-Key': '9Rv7VI4pVppMkhF9cmPOFWmFCFd0ag7b5TqW7s2j', // This is your app's REST API key
-        }
-      }
+  const fetchCities = async () => {
+    const where = encodeURIComponent(
+      JSON.stringify({
+        name: {
+          $exists: true,
+        },
+      })
     );
-    const data = await response.json(); // Here you have the data that you need
-    //console.log(JSON.stringify(data, null, 2));
-    setCitiesFromApi(data.results.map(city => city.name));
-  }catch(err){
-    console.log("Error fetching cities",err);
-  }
-  }
-
-
+    try {
+      const response = await fetch(
+        `https://parseapi.back4app.com/classes/Pakistancities_City?limit=6445&order=name&keys=name&where=${where}`,
+        {
+          headers: {
+            "X-Parse-Application-Id":
+              "MhoVSUP89e1ujc0Z6EGYruWbQFJX5wqzEzNFdt4O", // This is your app's application id
+            "X-Parse-REST-API-Key": "9Rv7VI4pVppMkhF9cmPOFWmFCFd0ag7b5TqW7s2j", // This is your app's REST API key
+          },
+        }
+      );
+      const data = await response.json(); // Here you have the data that you need
+      //console.log(JSON.stringify(data, null, 2));
+      setCitiesFromApi(data.results.map((city) => city.name));
+    } catch (err) {
+      console.log("Error fetching cities", err);
+    }
+  };
 
   useEffect(() => {
     document.title = "Become A Donor";
     fetchCities();
   }, []);
-
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -83,10 +101,11 @@ function BecomeADonor() {
       weight === "" ||
       bloodgroup === "Select Your Blood Group" ||
       gender === "Select Your Gender" ||
-      gender ==="" ||
-      bloodgroup === "" || contact === ""
+      gender === "" ||
+      bloodgroup === "" ||
+      contact === ""
     ) {
-      toast.error('Please fill in all the fields', {
+      toast.error("Please fill in all the fields", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -95,10 +114,10 @@ function BecomeADonor() {
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
+      });
       return;
     }
-    if(containsNumber(name)){
+    if (containsNumber(name)) {
       toast.error("Name cannot be numeric", {
         position: "top-right",
         autoClose: 3000,
@@ -108,12 +127,10 @@ function BecomeADonor() {
         draggable: true,
         progress: undefined,
         theme: "light",
-
-        });
+      });
       return;
     }
-    if(ageCheck)
-    {
+    if (ageCheck) {
       toast.warn("Not Eligible to Donate", {
         position: "top-right",
         autoClose: 3000,
@@ -123,11 +140,10 @@ function BecomeADonor() {
         draggable: true,
         progress: undefined,
         theme: "light",
-
-        });
+      });
       return;
-    }  
-    if (contact.length !== 11) {
+    }
+    if (contact.length !== 11 || contact.length < 11) {
       toast.warn("Contact Number should be exactly 11 digits", {
         position: "top-right",
         autoClose: 3000,
@@ -140,10 +156,9 @@ function BecomeADonor() {
       });
       return;
     }
-    
-    console.log(gender,bloodgroup);
-    if(!radioButton)
-    {
+
+    console.log(gender, bloodgroup);
+    if (!radioButton) {
       toast.warn("Select any radio option", {
         position: "top-right",
         autoClose: 3000,
@@ -153,14 +168,12 @@ function BecomeADonor() {
         draggable: true,
         progress: undefined,
         theme: "light",
-
-        });
+      });
       return;
     }
-  
+
     console.log(gender);
-    if(hasDonated===false && lastdonated==="")
-    {
+    if (hasDonated === false && lastdonated === "") {
       toast.warn("Please enter last donated date", {
         position: "top-right",
         autoClose: 3000,
@@ -170,12 +183,10 @@ function BecomeADonor() {
         draggable: true,
         progress: undefined,
         theme: "light",
-
-        });
+      });
       return;
     }
-    if(weight < 50)
-    {
+    if (weight < 50) {
       toast.warn("Weight Should be between 17-70", {
         position: "top-right",
         autoClose: 3000,
@@ -185,64 +196,69 @@ function BecomeADonor() {
         draggable: true,
         progress: undefined,
         theme: "light",
-  
-        });
-        return;
+      });
+      return;
     }
 
-    try{
-        const submitData = {
-              name : name,
-              dob :  age ,
-              gender : gender ,
-              bloodgroup : bloodgroup,
-              weight :  weight,
-              city : address,
-              contact : contact,
-              lastdonated : lastdonated
-        }
-        
-        const response = await axios.post("http://localhost:3005/donors/addDonor",submitData);
-        if(response.status === 200)
-        {
-          toast.success("Form Submitted Successfully", {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-      
-            });
-          setName("");
-          setAddress("");
-          setAge("");
-          setGender("");
-          setBloodGroup("");
-          setLastDonated("");
-          setWeight("");
-          setContact("");
-          sessionStorage.clear();
-        }  
+    try {
+      const submitData = {
+        name: name,
+        dob: age,
+        gender: gender,
+        bloodgroup: bloodgroup,
+        weight: weight,
+        city: address,
+        contact: contact,
+        lastdonated: lastdonated,
+      };
+
+      const response = await axios.post(
+        "http://localhost:3005/donors/addDonor",
+        submitData
+      );
+      if (response.status === 200) {
+        toast.success("Form Submitted Successfully", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setName("");
+        setAddress("");
+        setAge("");
+        setGender("");
+        setBloodGroup("");
+        setLastDonated("");
+        setWeight("");
+        setContact("");
+        sessionStorage.clear();
+      }
+    } catch (err) {
+      console.log("Error Occurred", err);
     }
-    catch(err){
-          console.log("Error Occurred",err);
-    }
-    
+  }
+
+  function containsSpecialCharacter(str) {
+    // Regular expression to match special characters and symbols
+    const specialCharacterPattern = /[!@#$%^&*(),.?":{}|<>+-]/;
+
+    // Test the string against the regular expression
+    return specialCharacterPattern.test(str);
   }
 
   function containsNumber(str) {
     const regex = /\d/;
     return regex.test(str);
   }
-  
+
   function containsNegative(str) {
     const num = parseInt(str);
-    if(num < 0)
-    return true;
-  
+    if (num < 0) return true;
+
     return false;
   }
 
@@ -271,17 +287,25 @@ function BecomeADonor() {
                 <input
                   type="text"
                   name="name"
+                  placeholder="Enter Your Full Name"
                   value={name}
                   onChange={(e) => {
                     setName(e.target.value);
                     sessionStorage.setItem("name", e.target.value);
                   }}
-              
                 />
-                {
-                  containsNumber(name)?<span>*Name should not contain numeric digits</span>:""
-                }
-                
+
+                {containsSpecialCharacter(name) ? (
+                  <span>*Name should not contain any special character</span>
+                ) : (
+                  ""
+                )}
+                <br />
+                {containsNumber(name) ? (
+                  <span>*Name should not contain numeric digits</span>
+                ) : (
+                  ""
+                )}
               </div>
 
               <div className="form-group">
@@ -296,18 +320,20 @@ function BecomeADonor() {
                     console.log(age);
                     setAge(e.target.value);
                     sessionStorage.setItem("age", e.target.value);
-                    if(age === "")
-                    setAgeCheck(false);
-                    else if(age <= 16 || age >=70)
-                    setAgeCheck(true);  
-                    else
-                    setAgeCheck(false);
+                    if (age === "") setAgeCheck(false);
+                    else if (age <= 16 || age >= 70) setAgeCheck(true);
+                    else setAgeCheck(false);
                   }}
                 />
-                {ageCheck ? <span>*Not Eligible to Donate (Age should be between 16-70)</span> : ""}
+                {ageCheck ? (
+                  <span>
+                    *Not Eligible to Donate (Age should be between 16-70)
+                  </span>
+                ) : (
+                  ""
+                )}
               </div>
 
-              
               <div className="form-group">
                 <label htmlFor="gender">Gender</label>
                 <select
@@ -322,7 +348,7 @@ function BecomeADonor() {
                   <option value="Select Your Gender">Select Your Gender</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
-                  </select>
+                </select>
               </div>
 
               <div className="form-group">
@@ -336,7 +362,9 @@ function BecomeADonor() {
                   // defaultValue={bloodgroup}
                   value={bloodgroup}
                 >
-                  <option value="Select Your Blood Group">Select Your Blood Group</option>
+                  <option value="Select Your Blood Group">
+                    Select Your Blood Group
+                  </option>
                   <option value="A+">A+</option>
                   <option value="A-">A-</option>
                   <option value="B+">B+</option>
@@ -347,7 +375,6 @@ function BecomeADonor() {
                   <option value="O-">O-</option>
                 </select>
               </div>
-
 
               <div className="form-group">
                 <label htmlFor="weight">Weight</label>
@@ -362,7 +389,13 @@ function BecomeADonor() {
                     sessionStorage.setItem("weight", e.target.value);
                   }}
                 />
-                {weight < 50 && weight.length > 0 ? <span>*Not Eligible to Donate (Min. Eligible Weight is 50)</span> :""}
+                {weight < 50 && weight.length > 0 ? (
+                  <span>
+                    *Not Eligible to Donate (Min. Eligible Weight is 50)
+                  </span>
+                ) : (
+                  ""
+                )}
               </div>
 
               <div className="form-group">
@@ -377,12 +410,14 @@ function BecomeADonor() {
                   }}
                 >
                   <option value="Select Your City">Select Your City</option>
-                  {
-                    cities.map((city,index)=>{
-                      return <option key={index} value={city}>{city}</option>
-                    })
-                  }
-                  </select>
+                  {cities.map((city, index) => {
+                    return (
+                      <option key={index} value={city}>
+                        {city}
+                      </option>
+                    );
+                  })}
+                </select>
               </div>
 
               <div className="form-group">
@@ -397,11 +432,18 @@ function BecomeADonor() {
                     sessionStorage.setItem("contact", e.target.value);
                   }}
                 />
-                {containsNegative(contact) ? <span>Contact Number can't be negative</span>:""}
-                {contact.length > 11 ? <span>Contact Number should be 11 digits</span> :""}
+                {containsNegative(contact) ? (
+                  <span>*Contact Number can't be negative</span>
+                ) : (
+                  ""
+                )}
+                <br />
+                {contact.length > 11 ? (
+                  <span>*Contact Number should be 11 digits</span>
+                ) : (
+                  ""
+                )}
               </div>
-
-              
               <div className="form-group" id="radio">
                 <label>Have you donated in the last 3 months?</label>
                 <div>
@@ -409,7 +451,10 @@ function BecomeADonor() {
                     type="radio"
                     name="donated-recently"
                     value="yes"
-                    onClick={() => {setHasDonated(false);setRadioChecked(true)}}
+                    onClick={() => {
+                      setHasDonated(false);
+                      setRadioChecked(true);
+                    }}
                   />
                   <label htmlFor="yes">Yes</label>
                 </div>
@@ -418,7 +463,10 @@ function BecomeADonor() {
                     type="radio"
                     name="donated-recently"
                     value="no"
-                    onClick={() => {setHasDonated(true); setRadioChecked(true)}}
+                    onClick={() => {
+                      setHasDonated(true);
+                      setRadioChecked(true);
+                    }}
                   />
                   <label htmlFor="no">No</label>
                 </div>
@@ -441,9 +489,7 @@ function BecomeADonor() {
 
               {/* session Storage */}
               <div className="form-group">
-                <button type="submit">
-                  Submit
-                </button>
+                <button type="submit">Submit</button>
               </div>
             </form>
           </div>

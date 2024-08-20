@@ -1,20 +1,20 @@
-body {
-  font-family: "Poppins", "Arial", "Sans-Serif";
+html{
   overflow-x: hidden;
 }
-
-.recipient-container {
-  top: 0;
-  left: 0;
+#divv {
+  overflow-y: hidden;
+  position: absolute;
+  top:0;
+  left:0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
+  width:100vw;
   height: 100vh;
-  position: relative;
-  top: -10px;
+  background-color: #8b241a;
 }
+
 
 form {
   display: flex;
@@ -23,7 +23,7 @@ form {
 }
 
 .form-structure {
-  margin-top: 10%;
+  margin-top: 15%;
   width: 650px;
   height: auto;
   display: grid;
@@ -34,18 +34,17 @@ form {
 .form-header {
   display: flex;
   background-color: #b92012;
-  height: 150px;
   padding: 10px;
 }
 
 .header-content {
-  display: flex;
-  align-items: center;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
 }
 
 .header-content img {
-  width: 140px;
- 
+  width: 120px;
+  height: 120px;
   margin-right: 10px;
 }
 
@@ -53,11 +52,24 @@ form {
   color: white;
 }
 
+.form-header div:first-child{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.form-header div:nth-child(2)
+{
+  margin-top: -15px;
+  margin-right: 15px;
+}
 .form-header p {
+  text-align: left;
+  position: relative;
+  top:-20px;
   color: #f0f0f0;
   margin: 0;
   font-weight: 500;
-  font-size: 1.0em;
+  font-size: 0.8em;
 }
 
 .form-content {
@@ -137,6 +149,10 @@ form {
 }
 
 @media (max-width: 768px) {
+  .form-header div:nth-child(2)
+{
+  margin-top: -7px;
+}
   .form-structure {
     width: 80vw;
   }
@@ -152,6 +168,13 @@ form {
 }
 
 @media (max-width: 425px) {
+  .form-header div:nth-child(2)
+{
+  margin-top: 10px;
+}
+  .form-structure{
+    margin-top:35%;
+  }
   .form-header div img {
     width: 100px;
     height: 100px;
@@ -163,6 +186,7 @@ form {
 
   .form-header div p {
     font-size: 7px;
+    top:10px;
     margin-top: -12px;
   }
 
