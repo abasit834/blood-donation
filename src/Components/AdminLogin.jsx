@@ -11,14 +11,6 @@ function AdminLogin() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
-        if(username === "admin" && password==="admin@123")  
-        navigate("/admin/dashboard")
-    
-        if (username !== "admin" || password !== "admin@123") {
-            alert("Incorrect Credentials");
-            return;
-        }
         
         if (username === "" || password === "") {
             alert("Please fill all input fields");
@@ -31,31 +23,28 @@ function AdminLogin() {
         }
         
     
-        // try{
-        // const response = await axios.post("http://localhost:3005/admin/login",{username : username , password : password});
-        // console.log(response);
+        try{
+        const response = await axios.post("http://localhost:3005/admin/login",{username : username , password : password});
+        console.log(response);
+        localStorage.setItem("token",response.data.token);
 
-        // if(response.status === 200)
-        //     navigate("/admin/dashboard");
-        // else
-        // {
-        //     alert("Invalid Credentials");
-        //     return;
-        // }
-
-
-        // setUsername("");
-        // setPassword("");
-
-        // sessionStorage.clear();
-
-        // console.log("Username:", username);
-        // console.log("Password:", password);
-        // }
-        // catch(err){
-        //     alert("Invalid Credentials");
-        //     console.log(err);
-        // }
+        if(response.status === 200)
+        {
+            navigate("/admin/dashboard");
+            setUsername("");
+            setPassword("");
+            sessionStorage.clear();
+        }
+        else
+        {
+            alert("Invalid Credentials");
+            return;
+        }
+        }
+        catch(err){
+            alert("Error Occured While loggin in");
+            console.log(err);
+        }
     };
 
     return (

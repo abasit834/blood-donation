@@ -216,8 +216,9 @@ function BecomeADonor() {
         "http://localhost:3005/donors/addDonor",
         submitData
       );
-      if (response.status === 200) {
-        toast.success("Form Submitted Successfully", {
+      console.log(response.data);
+      if (response.data.dup === true) {
+        toast.error(response.data.message, {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -227,16 +228,27 @@ function BecomeADonor() {
           progress: undefined,
           theme: "light",
         });
-        setName("");
-        setAddress("");
-        setAge("");
-        setGender("");
-        setBloodGroup("");
-        setLastDonated("");
-        setWeight("");
-        setContact("");
-        sessionStorage.clear();
+        return;
       }
+      toast.success("Form Submitted Successfully", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setName("");
+      setAddress("");
+      setAge("");
+      setGender("");
+      setBloodGroup("");
+      setLastDonated("");
+      setWeight("");
+      setContact("");
+      sessionStorage.clear();
     } catch (err) {
       console.log("Error Occurred", err);
     }
