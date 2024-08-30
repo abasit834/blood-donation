@@ -16,7 +16,7 @@ function Card(props) {
               <span className="card-name-label" id="City">City : </span>
               <span className="card-name-value">{props.city}</span>
             </p>
-            <h4 className="card-subtitle">{props.blood}</h4>
+            <h4 className="card-subtitle">{props.blood}</h4> {/* Updated */}
             <div className="button-container">
               <button className="card-button">View Ph#</button>
               <button className="card-button">Button 2</button>

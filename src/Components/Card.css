@@ -1,11 +1,12 @@
+
 .me-container{
   overflow-y: auto;
   position: absolute;
   top:0;
   left:0;
   width:100vw;
-  /* height: 100vh; */
-  background-color: #8b241a;
+   height: 100vh; 
+  background-color: rgb(66, 132, 173);
 }
 .cards-container{
   margin-top: 20px;
@@ -15,6 +16,9 @@
   justify-content: center;
   align-items: center;
   gap:15px;
+  background-color: rgb(66, 132, 173);
+  /* height: 100%;
+  width:100%; */
 }
 
 .card-container {
