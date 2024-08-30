@@ -18,7 +18,13 @@ return (
         <FontAwesomeIcon icon={faX} id="close" onClick={()=>setShow(false)}/>
             <ul>
             <li onClick={()=>{
+                if(localStorage.getItem("token"))
+                {
+                    navigate("/admin/dashboard");    
+                }
+                else{
                 navigate("/admin/login");
+                }
             }}>Admin</li>   
             <li onClick={()=>{
                navigate('/become-a-donor');
