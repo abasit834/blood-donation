@@ -213,7 +213,7 @@ function BecomeADonor() {
       };
 
       const response = await axios.post(
-        "http://localhost:3005/donors/addDonor",
+        "https://blood-donation-backend-z7gr.vercel.app/donors/addDonor",
         submitData
       );
       console.log(response.data);
@@ -230,25 +230,29 @@ function BecomeADonor() {
         });
         return;
       }
-      toast.success("Form Submitted Successfully", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      setName("");
-      setAddress("");
-      setAge("");
-      setGender("");
-      setBloodGroup("");
-      setLastDonated("");
-      setWeight("");
-      setContact("");
-      sessionStorage.clear();
+      if(response.data.success)
+      {
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setName("");
+        setAddress("");
+        setAge("");
+        setGender("");
+        setBloodGroup("");
+        setLastDonated("");
+        setWeight("");
+        setContact("");
+        sessionStorage.clear();
+        return;
+      }  
     } catch (err) {
       console.log("Error Occurred", err);
     }

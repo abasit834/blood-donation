@@ -24,7 +24,7 @@ function AdminLogin() {
         
     
         try{
-        const response = await axios.post("http://localhost:3005/admin/login",{username : username , password : password});
+        const response = await axios.post("https://blood-donation-backend-z7gr.vercel.app/admin/login",{username : username , password : password});
         console.log(response);
         localStorage.setItem("token",response.data.token);
 

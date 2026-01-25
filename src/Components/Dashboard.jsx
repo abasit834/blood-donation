@@ -100,9 +100,9 @@ function Dashboard() {
   }
 
 
-  const {data : bloodData , error : bloodError} = useSWR("http://localhost:3005/admin/count-by-bloodgroup",getCount);
+  const {data : bloodData , error : bloodError} = useSWR("https://blood-donation-backend-z7gr.vercel.app/admin/count-by-bloodgroup",getCount);
   const { data: totalData, error: totalError } = useSWR(
-    "http://localhost:3005/admin/get-total-count",
+    "https://blood-donation-backend-z7gr.vercel.app/admin/get-total-count",
     getAll
   );
 

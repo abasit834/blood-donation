@@ -3,15 +3,14 @@ import "./Recipent.css";
 import bloodDonation from "../Assets/blood-donation.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 function FindDonor() {
-  const [patientName, setPatientName] = useState("");
   const [bloodGroup, setBloodGroup] = useState("Select Your Blood Group");
   const [city, setCity] = useState("Select Your City");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [cities,setCitiesFromApi] =  useState([]);
-  // const [date, setDate] = useState("");
-  const [age, setAge] = useState("");
+  const navigate =  useNavigate();
+
 
   const fetchCities = async () => {
     const where = encodeURIComponent(
@@ -46,73 +45,12 @@ function FindDonor() {
     fetchCities();
   }, []);
 
-  function containsSpecialCharacter(str) {
-    // Regular expression to match special characters and symbols
-    const specialCharacterPattern = /[!@#$%^&*(),.?":{}|<>+-]/;
-  
-    // Test the string against the regular expression
-    return specialCharacterPattern.test(str);
-  }
-
-  function containsNegative(str) {
-    const num = parseInt(str);
-    if(num < 0)
-    return true;
-  
-    return false;
-  }
-
-  function handleSubmit(e) {
+  async function handleSubmit (e) {
     e.preventDefault();
 
-    if(patientName === "" || bloodGroup === "Select Your Blood Group" || city === "Select Your City" || phoneNumber === "" || age === "")
+    if(bloodGroup === "Select Your Blood Group" || city === "Select Your City")
     {
       toast.error("Please fill in all the fields", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      return;
-    }
-
-    if(containsNumber(patientName) || containsSpecialCharacter(patientName))
-    {
-      toast.warn("Please Enter Name Correctly", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      return;
-    }
-    
-    if(containsNegative(phoneNumber) || phoneNumber.length < 11 || phoneNumber.length > 11)
-    {
-      toast.warn("Invalid Phone Number", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      return;
-    }
-    
-    if(age > 200 || age === 0)
-    {
-      toast.warn("Please Recheck Patient's Age", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -130,19 +68,8 @@ function FindDonor() {
     const isoDate = date.toISOString().split('T')[0]; // Returns only the date part in YYYY-MM-DD format
 
     console.log(isoDate); // Outputs the date in ISO 8601 format (e.g., 2024-08-20)
-
-
-    toast.success("Fetching Donors For You", {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-
+    
+    navigate('/donors',{ state : {bloodGroup : bloodGroup , city : city} })
   
   }
 
@@ -171,25 +98,6 @@ function FindDonor() {
           <div className="form-content">
             <div className="form-wrapper">
               <form onSubmit={handleSubmit}>
-                <div className="form-item">
-                  <label htmlFor="patientName">Patient Name</label>
-                  <input
-                    type="text"
-                    name="patientName"
-                    placeholder="Enter Patient's Name"
-                    value={patientName}
-                    onChange={(e) => setPatientName(e.target.value)}
-                  />
-                  {
-                    containsSpecialCharacter(patientName) ? <span>*Name should not contain any special character</span> :""
-                  }
-                  <br />
-                  {containsNumber(patientName) ? (
-                    <span>*Patient Name should not contain numeric digits</span>
-                  ) : (
-                    ""
-                  )}
-                </div>
 
                 <div className="form-item">
                   <label htmlFor="blood-group">Blood Group</label>
@@ -232,44 +140,12 @@ function FindDonor() {
                 </select>
               </div>
 
-                <div className="form-item">
-                  <label htmlFor="phoneNumber">Phone Number</label>
-                  <input
-                    type="number"
-                    name="phoneNumber"
-                    placeholder="+92"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                  />
-                  {containsNegative(phoneNumber) ? <span>Contact Number can't be negative</span>:""}
-                  <br />
-                  {phoneNumber.length > 11 ? (
-                    <span>*Phone Number should be 11 digits</span>
-                  ) : (
-                    ""
-                  )}
-                </div>
 
                 <div className="form-item">
-                  <label htmlFor="age">Age</label>
-                  <input
-                    type="number"
-                    name="age"
-                    placeholder="Enter Patient's Age"
-                    value={age}
-                    onChange={(e) => {
-                      setAge(e.target.value);
-                    }}
-                  />
-                  {
-                    age.length > 0 && age < 1 ? <span>*Age can't be negative</span>:""
-                  }
-                  <br />
-                  {age > 200 ? <span>*Please recheck the Age</span>:""}
-                </div>
+                <button type="submit">
+                    Find Donor
+                </button>
 
-                <div className="form-item">
-                  <button type="submit">Find Donor</button>
                 </div>
               </form>
             </div>
